@@ -222,6 +222,7 @@ static class OperatorTable
 						switch (buffer[offset + 1]) {
 							case (byte)'e': return re;
 							case (byte)'g': return rg;
+							case (byte)'i': return ri;
 						}
 						break;
 					case (byte)'R':
