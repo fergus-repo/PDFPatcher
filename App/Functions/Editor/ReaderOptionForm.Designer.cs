@@ -43,6 +43,8 @@ partial class ReaderOptionForm
 			this.label4 = new System.Windows.Forms.Label();
 			this._ShowBookmarkBox = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this._BookmarkFontSizeBox = new System.Windows.Forms.ComboBox();
 			this._MainTab.SuspendLayout();
 			this._DefaultPage.SuspendLayout();
 			this._BookmarkPage.SuspendLayout();
@@ -174,6 +176,8 @@ partial class ReaderOptionForm
 			// 
 			// _BookmarkPage
 			// 
+			this._BookmarkPage.Controls.Add(this._BookmarkFontSizeBox);
+			this._BookmarkPage.Controls.Add(this.label6);
 			this._BookmarkPage.Controls.Add(this._LocateOnBookmarkEditBox);
 			this._BookmarkPage.Controls.Add(this._AutoEditNextBookmarkBox);
 			this._BookmarkPage.Controls.Add(this._BookmarkFontBox);
@@ -191,7 +195,7 @@ partial class ReaderOptionForm
 			// _LocateOnBookmarkEditBox
 			// 
 			this._LocateOnBookmarkEditBox.AutoSize = true;
-			this._LocateOnBookmarkEditBox.Location = new System.Drawing.Point(8, 32);
+			this._LocateOnBookmarkEditBox.Location = new System.Drawing.Point(6, 92);
 			this._LocateOnBookmarkEditBox.Name = "_LocateOnBookmarkEditBox";
 			this._LocateOnBookmarkEditBox.Size = new System.Drawing.Size(204, 16);
 			this._LocateOnBookmarkEditBox.TabIndex = 4;
@@ -201,7 +205,7 @@ partial class ReaderOptionForm
 			// _AutoEditNextBookmarkBox
 			// 
 			this._AutoEditNextBookmarkBox.AutoSize = true;
-			this._AutoEditNextBookmarkBox.Location = new System.Drawing.Point(8, 54);
+			this._AutoEditNextBookmarkBox.Location = new System.Drawing.Point(6, 114);
 			this._AutoEditNextBookmarkBox.Name = "_AutoEditNextBookmarkBox";
 			this._AutoEditNextBookmarkBox.Size = new System.Drawing.Size(204, 16);
 			this._AutoEditNextBookmarkBox.TabIndex = 5;
@@ -212,7 +216,7 @@ partial class ReaderOptionForm
 			// 
 			this._BookmarkFontBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this._BookmarkFontBox.FormattingEnabled = true;
-			this._BookmarkFontBox.Location = new System.Drawing.Point(296, 6);
+			this._BookmarkFontBox.Location = new System.Drawing.Point(77, 32);
 			this._BookmarkFontBox.Name = "_BookmarkFontBox";
 			this._BookmarkFontBox.Size = new System.Drawing.Size(121, 20);
 			this._BookmarkFontBox.TabIndex = 3;
@@ -220,7 +224,7 @@ partial class ReaderOptionForm
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(225, 9);
+			this.label4.Location = new System.Drawing.Point(6, 35);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(65, 12);
 			this.label4.TabIndex = 2;
@@ -247,6 +251,34 @@ partial class ReaderOptionForm
 			this.label3.Size = new System.Drawing.Size(53, 12);
 			this.label3.TabIndex = 0;
 			this.label3.Text = "书签栏：";
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(6, 61);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(65, 12);
+			this.label6.TabIndex = 6;
+			this.label6.Text = "字体尺寸：";
+			// 
+			// _BookmarkFontSizeBox
+			// 
+			this._BookmarkFontSizeBox.FormattingEnabled = true;
+			this._BookmarkFontSizeBox.Items.AddRange(new object[] {
+            "默认",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "14",
+            "16",
+            "18",
+            "20"});
+			this._BookmarkFontSizeBox.Location = new System.Drawing.Point(77, 58);
+			this._BookmarkFontSizeBox.Name = "_BookmarkFontSizeBox";
+			this._BookmarkFontSizeBox.Size = new System.Drawing.Size(121, 20);
+			this._BookmarkFontSizeBox.TabIndex = 7;
 			// 
 			// ReaderOptionForm
 			// 
@@ -288,4 +320,6 @@ partial class ReaderOptionForm
 	private System.Windows.Forms.ComboBox _ShowBookmarkBox;
 	private System.Windows.Forms.Label label3;
 	private System.Windows.Forms.CheckBox _LocateOnBookmarkEditBox;
+	private System.Windows.Forms.ComboBox _BookmarkFontSizeBox;
+	private System.Windows.Forms.Label label6;
 }

@@ -61,7 +61,7 @@ sealed class ViewerCommand(string command) : IEditorCommand
 			case EditorCommands.FullScreen: AppContext.MainForm.FullScreen = !AppContext.MainForm.FullScreen; break;
 			case EditorCommands.Options:
 				controller.View.Viewer.ShowDialog<ReaderOptionForm>();
-				controller.ExecuteCommand(EditorCommands.ApplyOptions);
+				AppContext.MainForm.ExecuteCommand(EditorCommands.ApplyOptions);
 				break;
 		}
 	}

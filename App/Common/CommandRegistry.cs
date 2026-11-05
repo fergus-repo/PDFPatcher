@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PDFPatcher.Common
 {
@@ -20,6 +19,10 @@ namespace PDFPatcher.Common
 	sealed class CommandRegistry<P>
 	{
 		readonly Dictionary<string, ICommand<P>> _container = new Dictionary<string, ICommand<P>>(StringComparer.OrdinalIgnoreCase);
+
+		public IEnumerable<string> Keys => _container.Keys;
+
+		public int Count => _container.Count;
 
 		/// <summary>
 		/// 注册执行处理的命令处理器。

@@ -347,67 +347,81 @@ public partial class MainForm : Form
 	}
 
 	internal void ExecuteCommand(string commandName) {
-		if (commandName == Commands.ResetOptions) {
-			if (GetActiveFunctionControl() is IResettableControl f
-				&& FormHelper.YesNoBox("是否将当前功能恢复为默认设置？") == DialogResult.Yes) {
-				f.Reset();
-			}
-		}
-		else if (commandName == Commands.RestoreOptions && _OpenConfigDialog.ShowDialog() == DialogResult.OK) {
-			if (!AppContext.Load(_OpenConfigDialog.FileName)) {
-				FormHelper.ErrorBox("无法加载指定的配置文件。");
-				return;
-			}
-			foreach (Control item in __FunctionControls.Values) {
-				(item as IResettableControl)?.Reload();
-			}
-			SetupCustomizeToolbar();
-		}
-		else if (commandName == Commands.SaveOptions && _SaveConfigDialog.ShowDialog() == DialogResult.OK) {
-			AppContext.Save(_SaveConfigDialog.FileName, false, false);
-		}
-		else if (commandName == Commands.LogWindow) {
-			ShowLogControl();
-		}
-		else if (commandName == Commands.CreateShortcut) {
-			ShellHelper.CreateShortcut();
-		}
-		else if (commandName == Commands.VisitHomePage) {
-			ShellHelper.VisitHomePage();
-		}
-		else if (commandName == Commands.CheckUpdate) {
-			this.ShowDialog<UpdateForm>();
-		}
-		else if (commandName == Commands.Close) {
-			if (_FunctionContainer.SelectedTab.Tag.CastOrDefault<Function>() == Function.FrontPage) {
-				return;
-			}
-			_FunctionContainer.SelectedTab.Dispose();
-		}
-		else if (commandName == Commands.CustomizeToolbar || commandName == "_CustomizeToolbarCommand") {
-			this.ShowDialog<CustomizeToolbarForm>();
-			SetupCustomizeToolbar();
-		}
-		else if (commandName == Commands.ShowGeneralToolbar) {
-			_FunctionContainer.SuspendLayout();
-			if (_GeneralToolbar.Visible = AppContext.Toolbar.ShowGeneralToolbar = !AppContext.Toolbar.ShowGeneralToolbar) {
-				ScaleToolbar();
-			}
-			_FunctionContainer.PerformLayout();
-		}
-		else if (commandName == Commands.Exit) {
-			Close();
-		}
-		else if (commandName == Commands.FullScreenDisplay) {
-			FullScreen = !FullScreen;
-		}
-		else if (GetActiveFunctionControl() is FunctionControl f) {
-			if (commandName == Commands.Action && f.DefaultButton != null) {
-				f.DefaultButton.PerformClick();
-			}
-			else {
-				f.ExecuteCommand(commandName);
-			}
+		switch (commandName) {
+			case Commands.ResetOptions:
+				if (GetActiveFunctionControl() is IResettableControl r
+						&& FormHelper.YesNoBox("是否将当前功能恢复为默认设置？") == DialogResult.Yes) {
+					r.Reset();
+				}
+				break;
+			case Commands.RestoreOptions:
+				if (_OpenConfigDialog.ShowDialog() == DialogResult.OK) {
+					if (!AppContext.Load(_OpenConfigDialog.FileName)) {
+						FormHelper.ErrorBox("无法加载指定的配置文件。");
+						return;
+					}
+					foreach (Control item in __FunctionControls.Values) {
+						(item as IResettableControl)?.Reload();
+					}
+					SetupCustomizeToolbar();
+				}
+				break;
+			case Commands.SaveOptions:
+				if (_SaveConfigDialog.ShowDialog() == DialogResult.OK) {
+					AppContext.Save(_SaveConfigDialog.FileName, false, false);
+				}
+				break;
+			case Commands.LogWindow:
+				ShowLogControl();
+				break;
+			case Commands.CreateShortcut:
+				ShellHelper.CreateShortcut();
+				break;
+			case Commands.VisitHomePage:
+				ShellHelper.VisitHomePage();
+				break;
+			case Commands.CheckUpdate:
+				this.ShowDialog<UpdateForm>();
+				break;
+			case Commands.Close:
+				if (_FunctionContainer.SelectedTab.Tag.CastOrDefault<Function>() == Function.FrontPage) {
+					return;
+				}
+				_FunctionContainer.SelectedTab.Dispose();
+				break;
+			case Commands.CustomizeToolbar:
+			case "_CustomizeToolbarCommand":
+				this.ShowDialog<CustomizeToolbarForm>();
+				SetupCustomizeToolbar();
+				break;
+			case Commands.ShowGeneralToolbar:
+				_FunctionContainer.SuspendLayout();
+				if (_GeneralToolbar.Visible = AppContext.Toolbar.ShowGeneralToolbar = !AppContext.Toolbar.ShowGeneralToolbar) {
+					ScaleToolbar();
+				}
+				_FunctionContainer.PerformLayout();
+				break;
+			case Commands.Exit:
+				Close();
+				break;
+			case Commands.FullScreenDisplay:
+				FullScreen = !FullScreen;
+				break;
+			case Functions.Editor.EditorCommands.ApplyOptions:
+				foreach (var editor in _FunctionContainer.GetPrimaryControlsInTabs<EditorControl>()) {
+					editor.ExecuteCommand(commandName);
+				}
+				break;
+			default:
+				if (GetActiveFunctionControl() is FunctionControl f) {
+					if (commandName == Commands.Action && f.DefaultButton != null) {
+						f.DefaultButton.PerformClick();
+					}
+					else {
+						f.ExecuteCommand(commandName);
+					}
+				}
+				break;
 		}
 	}
 

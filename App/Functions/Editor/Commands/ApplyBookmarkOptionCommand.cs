@@ -1,7 +1,6 @@
 ﻿using System;
 using CLR;
 using MuPDF;
-using MuPDF.Extensions;
 using PDFPatcher.Common;
 
 namespace PDFPatcher.Functions.Editor;
@@ -18,7 +17,7 @@ sealed class ApplyBookmarkOptionCommand : IEditorCommand
 		var option = AppContext.Reader;
 
 		var font = option.BookmarkFont;
-		var fontSize = option.BookmarkFontSize != 0 ? option.BookmarkFontSize.Clamp(7f, 72f) : 0;
+		var fontSize = option.BookmarkFontSize != 0 ? option.BookmarkFontSize.Clamp(7f, 72f) : MainForm.DefaultFont.Size;
 		var keepFont = font.IsNullOrWhiteSpace() || bookmark.Font.FontFamily.Name == font;
 		var keepSize = fontSize == 0 || Math.Abs(fontSize - currFont.Size) < 1f;
 		if (!keepFont || !keepSize) {

@@ -2,6 +2,7 @@
 using System.Drawing.Text;
 using System.Linq;
 using System.Windows.Forms;
+using CLR;
 using PDFPatcher.Common;
 
 namespace PDFPatcher.Functions.Editor;
@@ -42,6 +43,7 @@ public partial class ReaderOptionForm : Form
 
 		_ShowBookmarkBox.Select((int)options.BookmarkState);
 		_BookmarkFontBox.Text = options.BookmarkFont;
+		_BookmarkFontSizeBox.Text = options.BookmarkFontSize == 0 ? "默认" : options.BookmarkFontSize.ToText();
 		_AutoEditNextBookmarkBox.Checked = options.ContinuousBookmarkEdit;
 		_LocateOnBookmarkEditBox.Checked = options.LocateBookmarkOnEdit;
 
@@ -60,6 +62,8 @@ public partial class ReaderOptionForm : Form
 
 		options.BookmarkState = (BookmarkState)_ShowBookmarkBox.SelectedIndex;
 		options.BookmarkFont = _BookmarkFontBox.Text;
+		float f;
+		options.BookmarkFontSize = (f = _BookmarkFontSizeBox.Text.ToSingle()) == 0 ? 0 : f.Clamp(5f, 128f);
 		options.ContinuousBookmarkEdit = _AutoEditNextBookmarkBox.Checked;
 		options.LocateBookmarkOnEdit = _LocateOnBookmarkEditBox.Checked;
 	}
